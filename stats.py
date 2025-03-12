@@ -10,11 +10,14 @@ def get_num_char (text):
         else:
             chars[lowered] = 1
     return chars  
+
+def sort_on(d):
+    return d["num"]
   
 def sort_char_count(char_count):
-    sorted_counts = [
-        {"character": char, "count":count}
-        for char, count in char_count.items() if char.isalpha()
-    ]
-    sorted_counts.sort(key=lambda x: x["count"], reverse=True)
+    sorted_counts = []
+    for ch in char_count:
+        sorted_counts.append({"char": ch, "num": char_count[ch]})
+    sorted_counts.sort(reverse=True, key=sort_on)
+
     return sorted_counts

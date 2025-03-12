@@ -1,26 +1,34 @@
-from stats import get_num_words, get_num_char, sort_char_count
+from stats import (
+    get_num_words, 
+    get_num_char, 
+    sort_char_count,
+)
 
 def main ():
-    print("============ BOOKBOT ============")
-    print("Analyzing book found at frankenstein.txt...")
-    print("----------- Word Count ----------")
     book_path = "books/frankenstein.txt"
     book_text = get_book_text(book_path)
     num_words = get_num_words(book_text)
-    
-    print(f"Found {num_words} total words")
-    
-    print("--------- Character Count -------")
     num_char = get_num_char(book_text)
-    sorted_chars = sort_char_count(num_char)
-    for item in sorted_chars:
-        print(f"{item['character']}: {item['count']}")
-
-    print("============= END ===============")
+    chars_sorted_list = sort_char_count(num_char)
+    print_report(book_path, num_words, chars_sorted_list)
+    
 
 def get_book_text (filepath):
     with open(filepath) as f:
         return f.read()
+    
+def print_report(book_path, num_words, chars_sorted_list):
+    print("============ BOOKBOT ============")
+    print(f"Analyzing book found at {book_path}...")
+    print("----------- Word Count ----------")
+    print(f"Found {num_words} total words")
+    print("--------- Character Count -------")
+    for item in chars_sorted_list:
+        if not item["char"].isalpha():
+            continue
+        print(f"{item['char']}: {item['num']}")
+
+    print("============= END ===============")
         
 
 main()    
